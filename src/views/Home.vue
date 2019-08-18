@@ -2,7 +2,7 @@
   <div class="home">
     <Navbar></Navbar>
     <Hero></Hero>
-    <products-list></products-list>
+    <!-- <products-list></products-list> -->
 
     <div class="container h-100">
       <div class="row p-5 h-100 justify-content-center align-items-center">
@@ -22,7 +22,7 @@
     </div>
     <login></login>
 
-    <mini-cart></mini-cart>
+    <!-- <mini-cart></mini-cart> -->
   </div>
 </template>
 
@@ -31,11 +31,13 @@ import { Component, Vue } from "vue-property-decorator";
 import HelloWorld from "@/components/HelloWorld.vue";
 import Hero from "@/components/Hero.vue";
 import Products from "@/sections/Products.vue";
+import Login from "@/components/Login.vue";
 
 @Component({
   components: {
     HelloWorld,
-    Hero
+    Hero,
+    Login
   }
 })
 export default class Home extends Vue {}
