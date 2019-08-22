@@ -72,21 +72,33 @@
                         </li>
                         <li>
                             <router-link to="/admin/overview">
-                                <i class="fa fa-book"></i>
-                                <span class="menu-text">Overview</span>
-                                <!-- <span class="badge badge-pill badge-primary">Beta</span> -->
+                                <i class="fa fa-chart-line"></i>
+                                <span>Overview</span>
                             </router-link>
                         </li>
                         <li>
                             <router-link to="/admin/products">
-                                <i class="fa fa-calendar"></i>
-                                <span class="menu-text">Products</span>
+                                <i class="fab fa-amazon"></i>
+                                <span>Products</span>
                             </router-link>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="fa fa-folder"></i>
-                                <span class="menu-text">Examples</span>
+                            <router-link to="/admin/orders">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Orders</span>
+                            </router-link>
+                        </li>
+
+                        <li>
+                            <router-link to="/admin/profile">
+                                <i class="fa fa-user"></i>
+                                <span>Profile</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <a href="#" @click="logout()">
+                                <i class="fa fa-power-off"></i>
+                                <span>Logout</span>
                             </a>
                         </li>
                     </ul>
@@ -111,39 +123,58 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import Hero from "@/components/Hero.vue"; // @ is an alias to /src
-import jQuery from "jquery";
-
-@Component({
+<script>
+// @ is an alias to /src
+import Hero from "@/components/Hero.vue";
+import {fb} from '../firebase';
+export default {
+  name: "admin",
+  data(){
+      return{
+          name:null,
+          email:null,
+      }
+  },
   components: {
     Hero
+  },
+  methods:{
+      closeMenu(){
+        // $(".page-wrapper").toggleClass("toggled");
+        $("#close-sidebar").click(function () {
+            if ($(".page-wrapper").hasClass("pinned")) {
+                // unpin sidebar when hovered
+                $(".page-wrapper").removeClass("pinned");
+                $("#sidebar").unbind( "hover");
+            } else {
+                $(".page-wrapper").addClass("pinned");
+                $("#sidebar").hover(
+                    function () {
+                        console.log("mouseenter");
+                        $(".page-wrapper").addClass("sidebar-hovered");
+                    },
+                    function () {
+                        console.log("mouseout");
+                        $(".page-wrapper").removeClass("sidebar-hovered");
+                    }
+                )
+
+            }
+        });
+      },
+      logout(){
+          fb.auth().signOut()
+          .then(() => {
+              this.$router.replace('/');
+          })
+          .catch((err) =>{
+              console.log(err);
+          });
+      }
+  },
+  created(){
+      let user = fb.auth().currentUser;
+      this.email = user.email;
   }
-})
-
-export default class Home extends Vue {
-    
-
-    closeMenu(){
-        if ($(".page-wrapper").hasClass("pinned")) {
-            // unpin sidebar when hovered
-            $(".page-wrapper").removeClass("pinned");
-            $("#sidebar").unbind( "hover");
-        } else {
-            $(".page-wrapper").addClass("pinned");
-            $("#sidebar").hover(
-                function () {
-                    console.log("mouseenter");
-                    $(".page-wrapper").addClass("sidebar-hovered");
-                },
-                function () {
-                    console.log("mouseout");
-                    $(".page-wrapper").removeClass("sidebar-hovered");
-                }
-            )
-
-        }
-    }
-}
+};
 </script>

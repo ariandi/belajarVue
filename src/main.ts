@@ -5,6 +5,7 @@ import jQuery from "jquery";
 import "popper.js";
 import "bootstrap";
 import "./assets/app.scss";
+import { fb } from "./firebase";
 
 declare global {
   interface Window { 
@@ -19,7 +20,14 @@ Vue.config.productionTip = false;
 
 Vue.component("Navbar", require("./components/NavBar.vue").default);
 
-new Vue({
-  router,
-  render: h => h(App)
-}).$mount("#app");
+
+let app = '';
+
+fb.auth().onAuthStateChanged(function(user) {
+  if(!app){
+    new Vue({
+      router,
+      render: h => h(App)
+    }).$mount("#app"); 
+  }
+});
