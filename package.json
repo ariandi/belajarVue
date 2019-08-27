@@ -13,12 +13,15 @@
     "firebase": "^6.4.0",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
+    "sweetalert2": "^8.16.3",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
+    "vue-firestore": "^0.3.22",
     "vue-property-decorator": "^8.1.0",
     "vue-router": "^3.0.3"
   },
   "devDependencies": {
+    "@types/bootstrap": "^4.3.1",
     "@types/firebase": "^3.2.1",
     "@types/jquery": "^3.3.31",
     "@vue/cli-plugin-babel": "^3.10.0",
