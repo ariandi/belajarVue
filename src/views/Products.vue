@@ -84,8 +84,7 @@
                     </div>
 
                     <div class="form-group">
-                      <!-- <vue-editor v-model="product.description"></vue-editor> -->
-                      <textarea name="" id="" v-model="product.description" rows="10" class="form-control"></textarea>
+                      <vue-editor v-model="product.description"></vue-editor>
                     </div>
                   </div>
                   <!-- product sidebar -->
@@ -144,12 +143,15 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { VueEditor } from "vue2-editor";
 //const { fb, db } = require("../firebase");
 import { fb, db } from '../firebase';
 declare var $ :any;
 declare var Swal:any;
 
-@Component
+@Component({
+  components : { VueEditor }
+})
 export default class Products extends Vue {
 
   @Prop() private msg!: string;
@@ -183,7 +185,7 @@ export default class Products extends Vue {
 
   data(){
     return {
-      product : {name:'', price:'', description:''}
+      product : {name:'', price:'', description:'', tags:[], images:[]}
     }
   }
 
